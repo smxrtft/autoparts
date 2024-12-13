@@ -61,7 +61,7 @@
                 <tr>
                     <td class="p-3">
                         <a href="{{ route('products.show', ['slug' => $item['slug']]) }}">
-                            <img src="{{ $item['img'] }}" alt="{{ $item['title'] }}" class="img-fluid w-25 h-25 object-fit-cover">
+                            <img src="{{ $item['img'] }}" alt="{{ $item['title'] }}" class="img-fluid w-100 h-100 object-fit-cover">
                         </a>
                     </td>
                     <td class="p-3"><a href="{{ route('products.show', ['slug' => $item['slug']]) }}">{{ $item['title'] }}</a></td>
