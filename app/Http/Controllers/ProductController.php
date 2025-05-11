@@ -18,6 +18,47 @@ class ProductController extends Controller
         return view('products.index', compact('title', 'products', 'allProducts'));
     }
 
+    public function search(Request $request)
+{
+    $query = $request->input('query', '');
+    
+    $products = Product::where('title', 'LIKE', "%{$query}%")
+        ->orWhere('content', 'LIKE', "%{$query}%")
+        ->when($request->min_price, function($q) use ($request) {
+            return $q->where('price', '>=', $request->min_price);
+        })
+        ->when($request->max_price, function($q) use ($request) {
+            return $q->where('price', '<=', $request->max_price);
+        })
+        ->when($request->statuses, function($q) use ($request) {
+            return $q->whereIn('status_id', (array)$request->statuses);
+        })
+        ->when($request->sort, function($q) use ($request) {
+            switch ($request->sort) {
+                case 'price_asc':
+                    return $q->orderBy('price', 'asc');
+                case 'price_desc':
+                    return $q->orderBy('price', 'desc');
+                case 'title_asc':
+                    return $q->orderBy('title', 'asc');
+                case 'title_desc':
+                    return $q->orderBy('title', 'desc');
+                default:
+                    return $q;
+            }
+        })
+        ->paginate(12)
+        ->appends($request->query());
+
+    $categories = Category::all();
+
+    return view('products.search_results', [
+        'products' => $products,
+        'query' => $query,
+        'categories' => $categories,
+    ]);
+}
+
     public function indexAdmin()
     {
         $products = Product::orderBy('category_id')->with('category')->paginate(15);
@@ -59,10 +100,11 @@ class ProductController extends Controller
             $product->img = $fileNameToStore;
             $product->save();
         }
-      return redirect()->back()->with('success', 'Продукт обновлён');
+        return redirect()->back()->with('success', 'Продукт обновлён');
     }
 
-    public function create() {
+    public function create()
+    {
         $categories = Category::all();
         return view('admin.create', compact('categories'));
     }
@@ -100,7 +142,7 @@ class ProductController extends Controller
     }
 
     public function destroy(Product $product)
-    {  
+    {
         $product->delete();
         return redirect()->back()->with('success', 'Продукт удален');
     }

@@ -77,7 +77,7 @@
     {{-- Популярные товары --}}
     <div class="container my-5 mb-5">
         <h2 class="text-center my-4">Популярные товары</h2>
-        <div class="row">
+        <div class="row justify-content-between">
             @foreach($products as $product)
                 <div class="col-md-4">
                     <div class="card mb-4">

@@ -1,8 +1,4 @@
-$(window).on('load', function() { // makes sure the whole site is loaded 
-    $('#status').fadeOut(); // will first fade out the loading animation 
-    $('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website. 
-    $('body').delay(350).css({'overflow':'visible'});
-  })
+
 
 function showCart(cart) {
     $("#cart-modal .modal-body").html(cart);
@@ -65,6 +61,14 @@ function getCart(action) {
     });
 }
 
+$(window).scroll(function() {
+    if ($(this).scrollTop() > 50) {
+        $('.navbar').addClass('navbar-shrink');
+    } else {
+        $('.navbar').removeClass('navbar-shrink');
+    }
+});
+
 $(function () {
     $(".addtocart").on("submit", function () {
         let form = $(this);
@@ -119,3 +123,54 @@ $(function () {
         });
     });
 });
+
+$(document).ready(function() {
+    $('.order-details-btn').click(function() {
+        const orderId = $(this).data('order-id');
+        $('#orderId').text(orderId);
+        
+        // Получаем данные строки заказа
+        const row = $(this).closest('tr');
+        $('#orderDate').text(row.find('td:nth-child(2)').text());
+        $('#orderTotal').text(row.find('td:nth-child(3)').text().trim().replace(' ₽', ''));
+        $('#orderName').text(row.find('td:nth-child(4) div').text());
+        $('#orderNote').text(row.find('td:nth-child(4) small').text() || '—');
+        $('#orderEmail').text(row.find('td:nth-child(5) div:first-child a').text());
+        $('#orderPhone').text(row.find('td:nth-child(5) div:last-child a').text());
+        $('#orderAddress').text(row.find('td:nth-child(6)').text());
+        
+        // Клонируем статус
+        const statusBadge = row.find('td:nth-child(7) span').clone();
+        $('#orderStatus').empty().append(statusBadge);
+        
+        // Загружаем товары через AJAX
+        $.get(`/orders/${orderId}/products`, function(data) {
+            const tbody = $('#orderProductsTable tbody');
+            tbody.empty();
+            
+            data.products.forEach(product => {
+                tbody.append(`
+                    <tr>
+                        <td>${product.name}</td>
+                        <td>${product.price.toFixed(2).replace('.', ',')} ₽</td>
+                        <td>${product.quantity}</td>
+                        <td>${(product.price * product.quantity).toFixed(2).replace('.', ',')} ₽</td>
+                    </tr>
+                `);
+            });
+            
+            // Добавляем итого
+            tbody.append(`
+                <tr class="font-weight-bold">
+                    <td colspan="3" class="text-right">Итого:</td>
+                    <td>${data.total.toFixed(2).replace('.', ',')} ₽</td>
+                </tr>
+            `);
+        });
+    });
+    
+    $('#printOrderBtn').click(function() {
+        window.print();
+    });
+});
+

@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
@@ -89,3 +91,5 @@ Route::middleware('guest')->group(function () {
     Route::post('reset-password', [LoginController::class, 'resetPasswordUpdate'])->name('password.update');
 });
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/search', [ProductController::class, 'search'])->name('products.search');
+Route::get('/orders',[CartController::class, 'orders'])->name('orders');

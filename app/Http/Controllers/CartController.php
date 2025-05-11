@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -72,5 +73,12 @@ class CartController extends Controller
         }
 
         return view('cart.checkout');
+    }
+
+    public function orders()
+    {
+        $orders = Order::where('email', Auth::user()->email)->get();
+
+        return view('cart.orders', compact('orders'));
     }
 }

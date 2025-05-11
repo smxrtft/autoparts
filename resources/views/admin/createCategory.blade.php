@@ -37,7 +37,7 @@
    </div>          --}}
    <div class="container">
     <div class="pt-5">
-        <h1 class="text-center mb-4">Добавление категории</h1>
+        <h1 class="text-center mb-4 section-title">Добавление категории</h1>
         
       <div class="container">
                       <div class="row">
@@ -47,8 +47,8 @@
                                   <form id="submitForm" action="{{ route('admin.store-category') }}" method="post">
                                     @csrf
                                       <div class="form-group required">
-                                          <lSabel for="title">Название категории</lSabel>
-                                          <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" id="title" value="" placeholder="Название категории">
+                                          <lSabel for="title" class="mb-3">Название категории</lSabel>
+                                          <input type="text" class="mt-1 form-control admin-input @error('title') is-invalid @enderror" name="title" id="title" value="" placeholder="Название категории">
                                       </div>                                             
                                       <div class="form-group pt-1">
                                           <button class="btn btn-primary btn-block" type="submit">Добавить</button>

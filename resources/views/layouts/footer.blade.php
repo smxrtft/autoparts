@@ -38,7 +38,7 @@
           </div>
           <div class="row">
               <div class="col-md-12 copy">
-                  <p class="text-center">&copy; Copyright 2024 - AutoParts. Все права защищены.</p>
+                  <p class="text-center">&copy; Copyright 2025 - AutoParts. Все права защищены.</p>
               </div>
           </div>
       </div>

@@ -5,7 +5,10 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel="icon" type="image/png" href="{{ asset('storage/img/favicon/favicon.png') }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ asset('storage/img/favicon/favicon-16x16.png') }}" sizes="16x16">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('storage/img/favicon/apple-touch-icon.png') }}">
+    <link rel="manifest" href="{{ asset('storage/img/favicon/site.webmanifest') }}">
     <!-- Bootstrap CSS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,10 +22,6 @@
 </head>
 
 <body>
-    <div id="preloader">
-        <div id="status">&nbsp;</div>
-    </div>
-
     @include('layouts.navbar')
 
     <div class="col-6 m-auto">
@@ -55,52 +54,74 @@
     </div><!-- /wrapper -->
 
     <!-- Modal -->
-    <div class="modal fade cart-modal" id="cart-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    <div class="modal fade cart-modal" id="cart-modal" tabindex="-1" aria-labelledby="cartModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+            <div class="modal-content" style="background-color: #2a2a2a; color: #e0e0e0;">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Корзина</h5>
+                    <h5 class="modal-title" id="cartModalLabel">Корзина</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true" style="color: #e0e0e0;">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Image</th>
-                                <th scope="col">Title</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Qty</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><a href="product.html"><img src="{{ asset('assets/front/img/1.jpg') }}"
-                                            alt="CORT AD810M Акустическая гитара"></a></td>
-                                <td><a href="product.html">CORT AD810M Акустическая гитара</a></td>
-                                <td>2 799</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td><a href="product.html"><img src="{{ asset('assets/front/img/2.jpg') }}"
-                                            alt="Crafter D6/N Акустическая гитара"></a></td>
-                                <td><a href="product.html">Crafter D6/N Акустическая гитара</a></td>
-                                <td>12 626</td>
-                                <td>2</td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" align="right">Товаров: 3 <br> Сумма: 28 051 руб.</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    @if (!empty(session('cart')))
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Фото</th>
+                                        <th scope="col">Наименование</th>
+                                        <th scope="col">Цена</th>
+                                        <th scope="col">Кол-во</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (session('cart') as $item)
+                                        <tr>
+                                            <td class="p-3">
+                                                <a href="{{ route('products.show', ['slug' => $item['slug']]) }}">
+                                                    <img src="{{ $item['img'] }}" alt="{{ $item['title'] }}"
+                                                        class="img-fluid w-100 h-100 object-fit-cover">
+                                                </a>
+                                            </td>
+                                            <td class="p-3"><a
+                                                    href="{{ route('products.show', ['slug' => $item['slug']]) }}">{{ $item['title'] }}</a>
+                                            </td>
+                                            <td class="p-3">@price_format($item['price']) руб.</td>
+                                            <td class="p-3">{{ $item['qty'] }}</td>
+                                            <td class="p-3">
+                                                <button type="button" class="btn btn-danger del-item"
+                                                    data-action="{{ route('cart.del_item', ['product_id' => $item['product_id']]) }}">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    <tr>
+                                        <td colspan="5" align="right">
+                                            Товаров: <span id="modal-cart-qty">{{ session('cart_qty') }}</span> шт.<br>
+                                            Сумма: <span id="modal-cart-total">@price_format(session('cart_total')) руб.</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    @else
+                        <div class="text-center">
+                            <h4>Корзина пуста</h4>
+                            <p>Добавьте товары, чтобы начать оформление заказа.</p>
+                        </div>
+                    @endif
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                    <button type="button" onclick="clearCart('{{ route('cart.clear') }}')"
-                        class="btn btn-danger">Очистить корзину</button>
-                    <a href="{{ route('cart.checkout') }}" class="btn btn-primary">Оформить заказ</a>
+                    @if (!empty(session('cart')))
+                        <button type="button" onclick="clearCart('{{ route('cart.clear') }}')"
+                            class="btn btn-danger">Очистить корзину</button>
+                        <a href="{{ route('cart.checkout') }}" class="btn btn-primary">Оформить заказ</a>
+                    @endif
                 </div>
             </div>
         </div>
