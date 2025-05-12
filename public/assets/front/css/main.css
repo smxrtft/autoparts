@@ -1291,7 +1291,7 @@ ul.social-network li {
 }
 
 a.bg-primary:focus, a.bg-primary:hover, button.bg-primary:focus, button.bg-primary:hover {
-    background-color: #7da5a7!important;
+    background-color: #7da5a7 !important;
 }
 
 .page-item.disabled .page-link {

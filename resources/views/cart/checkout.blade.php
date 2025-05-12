@@ -75,7 +75,7 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="email" class="text-f1faee">Email</label>
-                        <input type="email" name="email" id="email" required class="form-control checkout-input" value="{{ Auth::user()->email }}" disabled>
+                        <input type="email" name="email" id="email" required class="form-control checkout-input" value="{{ Auth::user()->email }}" readonly>
                     </div>
                     <div class="form-group mb-3">
                         <label for="phone" class="text-f1faee">Телефон</label>

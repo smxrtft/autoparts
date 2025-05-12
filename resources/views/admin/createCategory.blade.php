@@ -1,10 +1,10 @@
 @extends('layouts.layout')
 
 @section('title')
-   Admin Page
+    Admin Page
 @endsection
 @section('content')
-{{-- <div class="container">
+    {{-- <div class="container">
              <form action="{{ route('admin.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
             <tbody>
@@ -35,29 +35,31 @@
                 </tr>
             </form> 
    </div>          --}}
-   <div class="container">
-    <div class="pt-5">
-        <h1 class="text-center mb-4 section-title">Добавление категории</h1>
-        
-      <div class="container">
-                      <div class="row">
-                          <div class="col-md-5 mx-auto">
-                              <div class="card card-body">
-                                                          
-                                  <form id="submitForm" action="{{ route('admin.store-category') }}" method="post">
-                                    @csrf
-                                      <div class="form-group required">
-                                          <lSabel for="title" class="mb-3">Название категории</lSabel>
-                                          <input type="text" class="mt-1 form-control admin-input @error('title') is-invalid @enderror" name="title" id="title" value="" placeholder="Название категории">
-                                      </div>                                             
-                                      <div class="form-group pt-1">
-                                          <button class="btn btn-primary btn-block" type="submit">Добавить</button>
-                                      </div>
-                                  </form>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-      </div>
+    <div class="container">
+        <div class="pt-5">
+            <h1 class="text-center mb-4 section-title">Добавление категории</h1>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5 mx-auto">
+                        <div class="card card-body">
+
+                            <form id="submitForm" action="{{ route('admin.store-category') }}" method="post">
+                                @csrf
+                                <div class="form-group required">
+                                    <lSabel for="title" class="mb-3">Название категории</lSabel>
+                                    <input type="text"
+                                        class="mt-1 form-control admin-input @error('title') is-invalid @enderror"
+                                        name="title" id="title" value="" placeholder="Название категории">
+                                </div>
+                                <div class="form-group pt-1">
+                                    <button class="btn btn-primary btn-block" type="submit">Добавить</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

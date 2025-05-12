@@ -55,7 +55,6 @@ Route::middleware(['isAdmin'])->group(function() {
 });
 
 Route::match(['get', 'post'], '/cart/checkout', [\App\Http\Controllers\CartController::class, 'checkout'])->name('cart.checkout')->middleware(['auth', 'verified']);
-
 Route::get('dashboard', [RegisterController::class, 'dashboard'])->name('dashboard')->middleware(['auth', 'verified']);
 
 Route::get('verify-email', function() {
