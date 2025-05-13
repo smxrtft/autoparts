@@ -174,3 +174,13 @@ $(document).ready(function() {
     });
 });
 
+$(document).ready(function() {
+    // Если есть ошибки, скрываем через 5 секунд
+    if ($('#liveToast').length) {
+        setTimeout(function() {
+            $('#liveToast').fadeOut(500, function() {
+                $(this).remove(); // Полностью удаляем из DOM
+            });
+        }, 3000); // 3000 мс = 3 секунд
+    }
+});

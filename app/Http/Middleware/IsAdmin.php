@@ -16,7 +16,7 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user() && Auth::user()->email == 'admin@mail.ru') {
+        if (Auth::user() && Auth::user()->is_admin == 1) {
             return $next($request);
         }
 

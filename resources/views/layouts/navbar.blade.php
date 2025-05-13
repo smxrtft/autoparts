@@ -94,7 +94,7 @@
                         <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="userDropdown">
-                        @if(Auth::user()->email == 'admin@mail.ru')
+                        @if(Auth::user()->is_admin == 1)
                         <a class="dropdown-item" href="{{ route('admin.index') }}">
                             <i class="fas fa-user-shield mr-2"></i>Админ-панель
                         </a>

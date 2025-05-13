@@ -14,16 +14,6 @@
 
         <h1 class="text-center mb-4 section-title">Регистрация</h1>
 
-        @if ($errors->any())
-            <div class="alert alert-danger mb-4">
-                <ul class="mb-0">
-                    @foreach ($errors->all() as $error)
-                        <li><i class="fas fa-exclamation-circle mr-2"></i>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
         <div class="row">
             <div class="col-md-6 mx-auto">
                 <div class="card border-0 shadow-sm admin-card">

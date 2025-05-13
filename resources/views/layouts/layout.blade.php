@@ -23,7 +23,7 @@
 
 <body>
     @include('layouts.navbar')
-
+    
     <div class="col-6 m-auto">
 
         @if ($errors->any())

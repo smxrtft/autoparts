@@ -72,10 +72,7 @@
                     <div class="form-group mb-3">
                         <label for="name" class="text-f1faee">Имя</label>
                         <input type="text" name="name" id="name" required class="form-control checkout-input" value="{{ old('name') }}">
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="email" class="text-f1faee">Email</label>
-                        <input type="email" name="email" id="email" required class="form-control checkout-input" value="{{ Auth::user()->email }}" readonly>
+                        <input type="email" name="email" id="email" required class="form-control checkout-input" value="{{ Auth::user()->email }}" hidden>
                     </div>
                     <div class="form-group mb-3">
                         <label for="phone" class="text-f1faee">Телефон</label>
