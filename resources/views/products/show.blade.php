@@ -39,14 +39,6 @@
                     <!-- Заголовок и метки -->
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <h1 class="h3 mb-0 font-weight-bold text-f1faee">{{ $product->title }}</h1>
-                        <div class="offer">
-                            @if ($product->hit)
-                                <div class="offer-hit">Hit</div>
-                            @endif
-                            @if ($product->sale)
-                                <div class="offer-sale">Sale</div>
-                            @endif
-                        </div>
                     </div>
 
                     <!-- Цена -->

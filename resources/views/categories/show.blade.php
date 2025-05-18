@@ -73,8 +73,8 @@
                                 </div>
                                 <select name="sort" id="sort" class="form-control sort-select" onchange="this.form.submit()">
                                     <option value="">По умолчанию</option>
-                                    <option value="price_asc" {{ request('sort') == 'price_asc' ? 'selected' : '' }}>Цена (↑)</option>
-                                    <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>Цена (↓)</option>
+                                    <option value="price_asc" {{ request('sort') == 'price_asc' ? 'selected' : '' }}>Цена по возрастанию</option>
+                                    <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>Цена по убыванию</option>
                                     <option value="title_asc" {{ request('sort') == 'title_asc' ? 'selected' : '' }}>Название (А-Я)</option>
                                     <option value="title_desc" {{ request('sort') == 'title_desc' ? 'selected' : '' }}>Название (Я-А)</option>
                                 </select>
